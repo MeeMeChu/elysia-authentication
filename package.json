@@ -1,15 +1,18 @@
 {
   "name": "elysia-example",
-  "version": "1.0.50",
+  "version": "0.0.1",
+  "author": "MeeMeChu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/app.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "latest",
+    "logixlysia": "^5.1.1",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "src/app.js"
 }
