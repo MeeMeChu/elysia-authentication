@@ -1,0 +1,10 @@
+[paths]
+"@module/*" = "src/module/*"
+
+"@docs/*" = "src/docs/*"
+"@lib/*" = "src/lib/*"
+"@util/*" = "src/util/*"
+"@config/*" = "src/config/*"
+"@error/*" = "src/error/*"
+"@middleware/*" = "src/middleware/*"
+"@script/*" = "scr/script/*"
