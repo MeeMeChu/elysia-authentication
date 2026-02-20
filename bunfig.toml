@@ -1,5 +1,5 @@
 [paths]
-"@module/*" = "src/module/*"
+"@api/*" = "src/api/*"
 
 "@docs/*" = "src/docs/*"
 "@lib/*" = "src/lib/*"
@@ -7,4 +7,5 @@
 "@config/*" = "src/config/*"
 "@error/*" = "src/error/*"
 "@middleware/*" = "src/middleware/*"
+"@generated/*" = "src/generated/*"
 "@script/*" = "scr/script/*"

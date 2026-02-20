@@ -7,7 +7,7 @@ import openapi from "@elysiajs/openapi";
 import { errorHandler } from "@error/global.error";
 import { pkgMeta } from "@config/package";
 import { logger } from "@lib/logger";
-import { AppRoutes } from "@module/app.route";
+import { AppRoutes } from "api/app.route";
 
 const app = new Elysia()
   .onError(errorHandler)

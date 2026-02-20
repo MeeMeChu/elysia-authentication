@@ -101,13 +101,14 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "baseUrl": "./src",
     "paths": {
-      "@module/*": ["module/*"],
+      "@api/*": ["api/*"],
       "@docs/*": ["docs/*"],
       "@lib/*": ["lib/*"],
       "@util/*": ["util/*"],
       "@config/*": ["config/*"],
       "@error/*": ["error/*"],
       "@middleware/*": ["middleware/*"],
+      "@generated/*": ["generated/*"],
       "@script/*": ["script/*"],
     },
   }
