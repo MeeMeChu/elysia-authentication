@@ -2,11 +2,7 @@ import Elysia, { t } from "elysia";
 import { AuthSchema } from "../schema/auth.schema";
 import { authService } from "../service";
 
-export const authController = new Elysia({ prefix: "/auth" })
-  /**
-   * Register a new user
-   * POST /api/v1/auth/register
-   */
+export const authController = new Elysia()
   .post(
     "/register",
     async ({ body }) => {
@@ -24,11 +20,6 @@ export const authController = new Elysia({ prefix: "/auth" })
       },
     },
   )
-
-  /**
-   * Login user
-   * POST /api/v1/auth/login
-   */
   .post(
     "/login",
     async ({ body }) => {
@@ -46,11 +37,6 @@ export const authController = new Elysia({ prefix: "/auth" })
       },
     },
   )
-
-  /**
-   * Refresh access token
-   * POST /api/v1/auth/refresh
-   */
   .post(
     "/refresh",
     async ({ body }) => {
@@ -68,11 +54,6 @@ export const authController = new Elysia({ prefix: "/auth" })
       },
     },
   )
-
-  /**
-   * Logout user
-   * POST /api/v1/auth/logout
-   */
   .post(
     "/logout",
     async ({ body }) => {
@@ -91,11 +72,6 @@ export const authController = new Elysia({ prefix: "/auth" })
       },
     },
   )
-
-  /**
-   * Get current user profile (protected route example)
-   * GET /api/v1/auth/me
-   */
   .get(
     "/me",
     async ({ headers }) => {
