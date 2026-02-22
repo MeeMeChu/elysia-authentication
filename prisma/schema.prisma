@@ -13,31 +13,57 @@ datasource db {
   provider = "postgresql"
 }
 
-generator prismabox { 
-  provider = "prismabox"
+generator prismabox {
+  provider                    = "prismabox"
   typeboxImportDependencyName = "elysia"
-  typeboxImportVariableName = "t"
-  inputModel = true
-  output   = "../src/generated/prismabox"
+  typeboxImportVariableName   = "t"
+  inputModel                  = true
+  output                      = "../src/generated/prismabox"
 }
 
-model users {
-  user_id    String   @id @default(uuid())
-  email      String   @unique
-  username   String   @unique
-  password   String
-  fullname   String
-  role       UserRole @default(USER)
-  is_active  Boolean  @default(true)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  created_by String
-  updated_by String
+model Users {
+  user_id        String   @id @default(uuid())
+  user_status_id Int
+  email          String   @unique
+  username       String   @unique
+  fullname       String
+  role           UserRole @default(USER)
+  is_active      Boolean  @default(true)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  created_by     String
+  updated_by     String
 
-  tokens tokens[]
+  accounts    Accounts[]
+  tokens      Tokens[]
+  user_status UserStatus @relation(fields: [user_status_id], references: [user_status_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model tokens {
+model UserStatus {
+  user_status_id Int      @id
+  is_active      Boolean  @default(true)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  created_by     String
+  updated_by     String
+  users          Users[]
+}
+
+model Accounts {
+  account_id          String   @id @default(uuid())
+  user_id             String
+  provider            String
+  provider_account_id String
+  password            String?
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  user Users @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([provider, provider_account_id])
+}
+
+model Tokens {
   token_id   String    @id @default(uuid())
   token      String    @unique
   type       TokenType
@@ -47,16 +73,18 @@ model tokens {
   updated_at DateTime  @updatedAt
 
   user_id String
-  user    users  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  user    Users  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum TokenType {
   ACCESS
   REFRESH
   RESET_PASSWORD
+  VERIFY_EMAIL
 }
 
 enum UserRole {
   USER
   ADMIN
+  SUPERADMIN
 }

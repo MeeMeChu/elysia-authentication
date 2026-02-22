@@ -1,4 +1,4 @@
-import Elysia, { t } from "elysia";
+import Elysia from "elysia";
 import { AuthSchema } from "../schema/auth.schema";
 import { authService } from "../service";
 
@@ -6,14 +6,14 @@ export const authController = new Elysia()
   .post(
     "/register",
     async ({ body }) => {
-      const result = await authService.register(body as AuthSchema.RegisterDto);
+      const result = await authService.register(body as AuthSchema.RequestRegister);
       return {
         success: true,
         data: result,
       };
     },
     {
-      body: AuthSchema.register,
+      body: AuthSchema.requestRegister,
       detail: {
         summary: "Register a new user",
         tags: ["Authentication"],
@@ -23,81 +23,17 @@ export const authController = new Elysia()
   .post(
     "/login",
     async ({ body }) => {
-      const result = await authService.login(body as AuthSchema.LoginDto);
+      const result = await authService.login(body as AuthSchema.RequestLogin);
       return {
         success: true,
         data: result,
       };
     },
     {
-      body: AuthSchema.login,
+      body: AuthSchema.requestLogin,
       detail: {
         summary: "Login user",
         tags: ["Authentication"],
-      },
-    },
-  )
-  .post(
-    "/refresh",
-    async ({ body }) => {
-      const result = await authService.refreshToken(body as AuthSchema.RefreshTokenDto);
-      return {
-        success: true,
-        data: result,
-      };
-    },
-    {
-      body: AuthSchema.refreshToken,
-      detail: {
-        summary: "Refresh access token",
-        tags: ["Authentication"],
-      },
-    },
-  )
-  .post(
-    "/logout",
-    async ({ body }) => {
-      const data = body as AuthSchema.RefreshTokenDto;
-      await authService.logout(data.refreshToken);
-      return {
-        success: true,
-        message: "Logged out successfully",
-      };
-    },
-    {
-      body: AuthSchema.refreshToken,
-      detail: {
-        summary: "Logout user",
-        tags: ["Authentication"],
-      },
-    },
-  )
-  .get(
-    "/me",
-    async ({ headers }) => {
-      const authHeader = headers.authorization;
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        throw new Error("No token provided");
-      }
-
-      const token = authHeader.substring(7);
-      const user = await authService.verifyAccessToken(token);
-
-      return {
-        success: true,
-        data: {
-          user_id: user.user_id,
-          email: user.email,
-          role: user.role,
-          created_at: user.created_at,
-        },
-      };
-    },
-    {
-      detail: {
-        summary: "Get current user profile",
-        tags: ["Authentication"],
-        security: [{ bearerAuth: [] }],
       },
     },
   );

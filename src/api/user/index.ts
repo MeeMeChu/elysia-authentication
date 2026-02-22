@@ -1,1 +1,2 @@
-export { UserController } from "./controller/user.controller";
+// repository
+export { userRepository } from "./repository/user.repository";
