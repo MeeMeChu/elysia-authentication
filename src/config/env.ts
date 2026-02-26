@@ -6,11 +6,12 @@ const envSchema = z.object({
   PORT: z.string().default("8000"),
 
   DATABASE_URL: z.url().optional(),
-  BETTER_AUTH_SECRET: z.string(),
-  
-  // JWT (ใช้ BETTER_AUTH_SECRET เป็น default ถ้าไม่ได้กำหนด)
-  ACCESS_TOKEN_SECRET: z.string().optional(),
-  REFRESH_TOKEN_SECRET: z.string().optional(),
+
+  // JWT
+  ACCESS_TOKEN_SECRET: z.string(),
+  ACCESS_TOKEN_EXPIRES_IN: z.string().default("15m"),
+  REFRESH_TOKEN_SECRET: z.string(),
+  REFRESH_TOKEN_EXPIRES_IN: z.string().default("7d"),
 });
 
 export const env = envSchema.parse(process.env);

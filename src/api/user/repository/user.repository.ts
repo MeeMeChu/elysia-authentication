@@ -39,7 +39,7 @@ export const userRepository = {
     user_status_id: number;
     username: string;
     fullname: string;
-    role?: UserRole;
+    role?: UserRole[];
     created_by: string;
     updated_by: string;
   }) => {
@@ -57,7 +57,7 @@ export const userRepository = {
       email: string;
       username: string;
       fullname: string;
-      role?: UserRole;
+      role?: UserRole[];
       is_active?: boolean;
       created_by: string;
       updated_by: string;
@@ -74,7 +74,7 @@ export const userRepository = {
       email?: string;
       username?: string;
       fullname?: string;
-      role?: UserRole;
+      role?: UserRole[];
       is_active?: boolean;
       updated_by: string;
     },

@@ -8,6 +8,7 @@ import { errorHandler } from "@error/global.error";
 import { pkgMeta } from "@config/package";
 import { logger } from "@lib/logger";
 import { AppRoutes } from "api/app.route";
+import { runningSeeds } from "@script/seed";
 
 const app = new Elysia()
   .onError(errorHandler)
@@ -42,7 +43,7 @@ app.listen(env.PORT, ({ port }) => {
 // Run database seeding on startup
 const initializeApp = async () => {
   try {
-    // await runningSeeds();
+    await runningSeeds();
   } catch (error) {
     logger.error({ err: error }, "Failed to initialize app:");
   }

@@ -22,15 +22,15 @@ generator prismabox {
 }
 
 model Users {
-  user_id        String   @id @default(uuid())
+  user_id        String     @id @default(uuid())
   user_status_id Int
-  email          String   @unique
-  username       String   @unique
+  email          String     @unique
+  username       String     @unique
   fullname       String
-  role           UserRole @default(USER)
-  is_active      Boolean  @default(true)
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  role           UserRole[] @default([USER])
+  is_active      Boolean    @default(true)
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
   created_by     String
   updated_by     String
 
@@ -41,6 +41,7 @@ model Users {
 
 model UserStatus {
   user_status_id Int      @id
+  name           String
   is_active      Boolean  @default(true)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt

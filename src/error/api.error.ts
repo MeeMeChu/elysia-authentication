@@ -1,16 +1,16 @@
+import type { CustomErrorEntry } from "./custom_error/error_message";
+
 class ApiError extends Error {
   statusCode: number;
+  errorCode: number;
   isOperational: boolean;
 
-  constructor(statusCode: number, message: string | undefined, isOperational = true, stack = "") {
-    super(message);
+  constructor(statusCode: number, entry: CustomErrorEntry, isOperational = true) {
+    super(entry.message);
     this.statusCode = statusCode;
+    this.errorCode = entry.code;
     this.isOperational = isOperational;
-    if (stack) {
-      this.stack = stack;
-    } else {
-      Error.captureStackTrace(this, this.constructor);
-    }
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 

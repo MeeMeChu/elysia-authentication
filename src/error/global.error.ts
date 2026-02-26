@@ -19,7 +19,7 @@ export const errorHandler: ErrorHandler = ({ code, error, set }) => {
     set.status = error.statusCode;
 
     return {
-      code: error.statusCode,
+      code: error.errorCode,
       message: error.message,
     };
   }

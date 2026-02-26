@@ -20,6 +20,7 @@
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.4.0",
     "argon2": "^0.44.0",
+    "dayjs": "^1.11.19",
     "elysia": "latest",
     "jsonwebtoken": "^9.0.3",
     "minio": "^8.0.6",

@@ -1,3 +1,4 @@
+import { UserRole } from "@generated/prisma/enums";
 import { t } from "elysia";
 
 export namespace AuthSchema {
@@ -12,7 +13,7 @@ export namespace AuthSchema {
     user_id: t.String(),
     email: t.String(),
     username: t.String(),
-    role: t.String(),
+    role: t.Array(t.Enum(UserRole)),
     is_active: t.Boolean(),
   });
 
