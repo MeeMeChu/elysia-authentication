@@ -1,5 +1,8 @@
 [paths]
-"@api/*" = "src/api/*"
+"@service/*" = "src/api/service/*"
+"@controller/*" = "src/api/controller/*"
+"@repository/*" = "src/api/repository/*"
+"@schema/*" = "src/api/schema/*"
 
 "@docs/*" = "src/docs/*"
 "@lib/*" = "src/lib/*"

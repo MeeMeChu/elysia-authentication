@@ -101,7 +101,10 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "baseUrl": "./src",
     "paths": {
-      "@api/*": ["api/*"],
+      "@service/*": ["api/service/*"],
+      "@controller/*": ["api/controller/*"],
+      "@schema/*": ["api/schema/*"],
+      "@repository/*": ["api/repository/*"],
       "@docs/*": ["docs/*"],
       "@lib/*": ["lib/*"],
       "@util/*": ["util/*"],

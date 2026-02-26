@@ -2,14 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 import { prisma } from "@lib/prisma";
 import { logger } from "@lib/logger";
 import ApiError from "@error/api.error";
-import { userRepository } from "@api/user";
 import { customError } from "@error/custom_error/error_message";
 import { UserRole } from "@generated/prisma/enums";
 import { encryptPassword } from "@util/encryption";
-import { accountRepository } from "../../repository/account.repository";
 
-import type { AuthSchema } from "../../schema/auth.schema";
 import { Provider } from "@util/provider";
+import { AuthSchema } from "@schema/auth/auth.schema";
+import { userRepository } from "@repository/generic/user.repository";
+import { accountRepository } from "@repository/generic/account.repository";
 
 export const register = async (
   data: AuthSchema.RequestRegister,

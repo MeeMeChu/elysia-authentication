@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import { authController } from "./auth";
+import { authController } from "@controller/auth.controller";
 
 const routes = new Elysia().group("/api/v1", (app) => app.use(authController));
 

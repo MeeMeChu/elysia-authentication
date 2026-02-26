@@ -1,7 +1,7 @@
 import Elysia from "elysia";
-import { AuthSchema } from "../schema/auth.schema";
-import { authService } from "../service";
-import { ErrorModel } from "@error/error";
+import { authService } from "@service/auth";
+import { AuthSchema } from "@schema/auth/auth.schema";
+import { ErrorModel } from "@schema/error/error.schema";
 
 export const authController = new Elysia({ prefix: "/auth" })
   .post("/register", async ({ body }) => await authService.register(body), {

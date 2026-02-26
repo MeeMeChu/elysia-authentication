@@ -1,18 +1,18 @@
+import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { logger } from "@lib/logger";
 import { jwtUtils } from "@lib/jwt";
-import { userRepository } from "@api/user";
 import { verifyPassword } from "@util/encryption";
 import { Provider } from "@util/provider";
 import { TokenType } from "@generated/prisma/enums";
 import ApiError from "@error/api.error";
-import { accountRepository } from "../../repository/account.repository";
-import { tokenRepository } from "../../repository/token.repository";
 
-import type { AuthSchema } from "../../schema/auth.schema";
 import { customError } from "@error/custom_error/error_message";
-import dayjs from "dayjs";
 import { env } from "@config/env";
+import { userRepository } from "@repository/generic/user.repository";
+import { AuthSchema } from "@schema/auth/auth.schema";
+import { accountRepository } from "@repository/generic/account.repository";
+import { tokenRepository } from "@repository/generic/token.repository";
 
 export const login = async (data: AuthSchema.RequestLogin): Promise<AuthSchema.ResultLogin> => {
   const { email_or_username, password } = data;
