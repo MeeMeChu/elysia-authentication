@@ -15,14 +15,15 @@ src/
     ├── controller/
     │   └── <feature>.controller.ts     # e.g. auth.controller.ts
     ├── service/
-    │   └── command/                    # one file per use-case
-    │       ├── create_<feature>.ts
-    │       ├── update_<feature>.ts
-    │       └── delete_<feature>.ts
-    │   └── query/
-    │       ├── <feature>.ts
-    │       ├── <feature>.ts
-    │       └── <feature>.ts
+    │   └── <feature>/
+    │       ├── command/                # one file per use-case
+    │       │   ├── create_<feature>.ts
+    │       │   ├── update_<feature>.ts
+    │       │   └── delete_<feature>.ts
+    │       └── query/
+    │           ├── <feature>.ts
+    │           ├── <feature>.ts
+    │           └── <feature>.ts
     ├── repository/
     │       custom/
     │       └── <feature>.repository.ts     # e.g. user.repository.ts
@@ -99,7 +100,7 @@ Name files after the **feature + layer** they belong to.
 | Layer          | Location                                 | Responsibility                                              |
 | -------------- | ---------------------------------------- | ----------------------------------------------------------- |
 | **Controller** | `api/controller/<feature>.controller.ts` | รับ request, validate input, เรียก service, return response |
-| **Service**    | `api/service/command/<use_case>.ts`      | Business logic — 1 file ต่อ 1 use-case                      |
+| **Service**    | `api/service/<feature>/command/<use_case>.ts` | Business logic — 1 file ต่อ 1 use-case                 |
 | **Repository** | `api/repository/<feature>.repository.ts` | Database queries เท่านั้น ห้ามมี business logic             |
 | **Schema**     | `api/schema/<feature>.schema.ts`         | TypeBox schema + TypeScript types (ใช้ `namespace`)         |
 
