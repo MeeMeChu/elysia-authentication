@@ -1,14 +1,17 @@
 {
   "name": "elysia-authentication",
-  "module": "src/app.js",
+  "module": "src/app.ts",
   "version": "0.0.1",
   "type": "module",
   "author": "MeeMeChu",
   "scripts": {
     "dev": "bun run --watch src/app.ts",
-    "start": "bun run dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bun build src/app.ts --target bun --format esm --outdir dist"
+    "start": "NODE_ENV=production bun run dist/cluster.js",
+    "test": "bun test",
+    "build": "bun build src/app.ts src/cluster.ts --target bun --format esm --splitting --outdir dist --external pino --external pino-pretty --external argon2",
+    "start:single": "NODE_ENV=production bun run dist/app.js",
+    "typecheck": "tsc --noEmit",
+    "seed": "bun run src/script/seed.ts"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.8.0",

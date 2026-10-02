@@ -1,9 +1,9 @@
 import { UserRole } from "@generated/prisma/enums";
-import { prisma, TransactionClient } from "@lib/prisma";
+import { db, TransactionClient } from "@lib/prisma";
 
 export const userRepository = {
   findUsers: async () => {
-    return await prisma.users.findMany({
+    return await db.users.findMany({
       orderBy: {
         created_at: "desc",
       },
@@ -11,7 +11,7 @@ export const userRepository = {
   },
 
   findUserById: async (userId: string) => {
-    return await prisma.users.findUnique({
+    return await db.users.findUnique({
       where: {
         user_id: userId,
       },
@@ -19,7 +19,7 @@ export const userRepository = {
   },
 
   findUserByEmail: async (email: string) => {
-    return await prisma.users.findUnique({
+    return await db.users.findUnique({
       where: {
         email,
       },
@@ -27,7 +27,7 @@ export const userRepository = {
   },
 
   findUserByUsername: async (username: string) => {
-    return await prisma.users.findUnique({
+    return await db.users.findUnique({
       where: {
         username,
       },
@@ -43,7 +43,7 @@ export const userRepository = {
     created_by: string;
     updated_by: string;
   }) => {
-    return await prisma.users.create({
+    return await db.users.create({
       data,
     });
   },
@@ -79,7 +79,7 @@ export const userRepository = {
       updated_by: string;
     },
   ) => {
-    return await prisma.users.update({
+    return await db.users.update({
       where: {
         user_id: userId,
       },
@@ -88,7 +88,7 @@ export const userRepository = {
   },
 
   deleteUser: async (userId: string) => {
-    return await prisma.users.delete({
+    return await db.users.delete({
       where: {
         user_id: userId,
       },
@@ -96,7 +96,7 @@ export const userRepository = {
   },
 
   toggleUserActiveStatus: async (userId: string, isActive: boolean, updatedBy: string) => {
-    return await prisma.users.update({
+    return await db.users.update({
       where: {
         user_id: userId,
       },

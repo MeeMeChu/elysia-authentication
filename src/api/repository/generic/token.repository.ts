@@ -1,12 +1,15 @@
-import { prisma } from "@lib/prisma";
+import { db } from "@lib/prisma";
 import { TokenType } from "@generated/prisma/enums";
 
-type PrismaClient = typeof prisma;
-type TransactionClient = Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use' | '$extends'>;
+type PrismaClient = typeof db;
+type TransactionClient = Omit<
+  PrismaClient,
+  "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
+>;
 
 export const tokenRepository = {
   getTokenByUserId: async (userId: string) => {
-    return await prisma.tokens.findFirst({
+    return await db.tokens.findFirst({
       where: {
         user_id: userId,
       },
@@ -20,7 +23,7 @@ export const tokenRepository = {
     expires_at: Date;
     user_id: string;
   }) => {
-    return await prisma.tokens.create({
+    return await db.tokens.create({
       data,
     });
   },
@@ -34,7 +37,7 @@ export const tokenRepository = {
       type: TokenType;
       expires_at: Date;
       user_id: string;
-    }
+    },
   ) => {
     return await tx.tokens.create({
       data,
@@ -42,7 +45,7 @@ export const tokenRepository = {
   },
 
   findTokenByValue: async (token: string) => {
-    return await prisma.tokens.findUnique({
+    return await db.tokens.findUnique({
       where: {
         token,
       },
@@ -50,7 +53,7 @@ export const tokenRepository = {
   },
 
   revokeToken: async (tokenId: string) => {
-    return await prisma.tokens.update({
+    return await db.tokens.update({
       where: {
         token_id: tokenId,
       },
@@ -61,7 +64,7 @@ export const tokenRepository = {
   },
 
   deleteExpiredTokens: async () => {
-    return await prisma.tokens.deleteMany({
+    return await db.tokens.deleteMany({
       where: {
         expires_at: {
           lt: new Date(),

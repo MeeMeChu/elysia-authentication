@@ -52,5 +52,17 @@ export const runningSeeds = async () => {
     logger.info("[Seed] Seeding completed successfully.");
   } catch (error) {
     logger.error({ err: error }, "Error running seed:");
+    throw error;
   }
 };
+
+// Run once before starting the server, never once per cluster worker.
+if (import.meta.main) {
+  try {
+    await runningSeeds();
+  } catch {
+    process.exitCode = 1;
+  } finally {
+    await prisma.$disconnect();
+  }
+}

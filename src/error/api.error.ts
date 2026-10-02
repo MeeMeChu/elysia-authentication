@@ -2,7 +2,7 @@ import type { CustomErrorEntry } from "./custom_error/error_message";
 
 class ApiError extends Error {
   statusCode: number;
-  errorCode: number;
+  errorCode: CustomErrorEntry["code"];
   isOperational: boolean;
 
   constructor(statusCode: number, entry: CustomErrorEntry, isOperational = true) {

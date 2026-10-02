@@ -3,7 +3,7 @@ import { t } from "elysia";
 export namespace ErrorModel {
   export const apiErrorUser = t.Object(
     {
-      code: t.Number(),
+      code: t.String(),
       message: t.String(),
     },
     {
@@ -17,7 +17,7 @@ export namespace ErrorModel {
 
   export const apiErrorServer = t.Object(
     {
-      code: t.Number(),
+      code: t.String(),
       message: t.String(),
     },
     {

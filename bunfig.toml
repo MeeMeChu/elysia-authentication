@@ -11,4 +11,5 @@
 "@error/*" = "src/error/*"
 "@middleware/*" = "src/middleware/*"
 "@generated/*" = "src/generated/*"
-"@script/*" = "scr/script/*"
+"@script/*" = "src/script/*"
+"@model/*" = "src/model/*"

@@ -1,13 +1,12 @@
 import { authError } from "./1_auth";
-// import { userError } from "./user";  ← เพิ่ม service ใหม่ตรงนี้
+import { defaultError } from "./0_default";
 
 export const customError = {
+  ...defaultError,
   ...authError,
-  // user: userError,
 } as const;
 
 export type CustomErrorEntry = {
-  code: number;
+  code: string;
   message: string;
 };
-

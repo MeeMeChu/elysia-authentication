@@ -1,4 +1,4 @@
-import { prisma, TransactionClient } from "@lib/prisma";
+import { db, TransactionClient } from "@lib/prisma";
 
 export const accountRepository = {
   // สำหรับใช้ใน transaction
@@ -18,7 +18,7 @@ export const accountRepository = {
   },
 
   findAccountByProvider: async (provider: string, providerAccountId: string) => {
-    return await prisma.accounts.findUnique({
+    return await db.accounts.findUnique({
       where: {
         provider_provider_account_id: {
           provider,
@@ -29,7 +29,7 @@ export const accountRepository = {
   },
 
   findAccountByUserId: async (userId: string) => {
-    return await prisma.accounts.findFirst({
+    return await db.accounts.findFirst({
       where: {
         user_id: userId,
       },

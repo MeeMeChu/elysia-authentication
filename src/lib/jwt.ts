@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import { env } from "@config/env";
 import { TokenType, UserRole } from "@generated/prisma/enums";
 
-interface AccessTokenPayload {
+export interface AccessTokenPayload {
   user_id: string;
   email: string;
   role: UserRole[];

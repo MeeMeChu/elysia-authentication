@@ -1,35 +1,35 @@
-import { type ErrorHandler } from "elysia";
+import Elysia, { type ErrorHandler } from "elysia";
 import ApiError from "./api.error";
+import { customError } from "./custom_error/error_message";
 import { logger } from "@lib/logger";
 
 export const errorHandler: ErrorHandler = ({ code, error, set }) => {
-  // 🔹 Validation error (Elysia)
-  if (code === "VALIDATION") {
-    set.status = 400; // หรือ 422
-    
-    console.log("🚀 ~ errorHandler ~ error:", error)
-    return {
-      code: 400,
-      message: "Invalid request data",
-    };
-  }
-
-  // 🔹 Custom ApiError จาก service
-  if (error instanceof ApiError) {
+  if (error instanceof ApiError && error.isOperational) {
     set.status = error.statusCode;
-
-    return {
-      code: error.errorCode,
-      message: error.message,
-    };
+    return { code: error.errorCode, message: error.message };
   }
 
-  // 🔹 Unknown / Programming error
-  logger.error({ err: error }, "Unhandled error occurred");
+  if (code === "VALIDATION") {
+    set.status = 400;
+    return { ...customError.VALIDATION_ERROR };
+  }
 
+  if (code === "PARSE") {
+    set.status = 400;
+    return { ...customError.BAD_REQUEST };
+  }
+
+  if (code === "NOT_FOUND") {
+    set.status = 404;
+    return { ...customError.NOT_FOUND };
+  }
+
+  logger.error({ err: error }, "Unhandled error occurred");
   set.status = 500;
-  return {
-    code: 500,
-    message: "Something went wrong",
-  };
+  return { ...customError.INTERNAL_SERVER_ERROR };
 };
+
+export const errorMiddleware = new Elysia({ name: "errorHandler" }).onError(
+  { as: "global" },
+  errorHandler,
+);

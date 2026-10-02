@@ -2,37 +2,19 @@ import { Elysia } from "elysia";
 import { env } from "./config/env";
 
 import cors from "@elysiajs/cors";
-import cookie from "@elysiajs/cookie";
-import openapi from "@elysiajs/openapi";
 import { errorHandler } from "@error/global.error";
 import { pkgMeta } from "@config/package";
 import { logger } from "@lib/logger";
-import { AppRoutes } from "api/app.route";
+import { AppRoutes, ProtectedRoutes } from "./api/app.route";
 import { runningSeeds } from "@script/seed";
+import { openapiPlugin } from "@config/openapi";
 
 const app = new Elysia()
   .onError(errorHandler)
-  .use(cors())
-  .use(cookie())
-  .use(
-    openapi({
-      path: "/openapi",
-      documentation: {
-        info: {
-          title: pkgMeta.name,
-          version: pkgMeta.version,
-          description: pkgMeta.description,
-        },
-        servers: [
-          {
-            url: `http://localhost:${env.PORT}`,
-            description: `${env.NODE_ENV} server`,
-          },
-        ],
-      },
-    }),
-  )
-  .use(AppRoutes); // Register application routes
+  .use(cors({ origin: [env.FRONTEND_URL], credentials: true }))
+  .use(openapiPlugin)
+  .use(AppRoutes)
+  .use(ProtectedRoutes);
 
 app.listen(env.PORT, ({ port }) => {
   logger.info(
@@ -40,14 +22,14 @@ app.listen(env.PORT, ({ port }) => {
   );
 });
 
-// Run database seeding on startup
 const initializeApp = async () => {
   try {
     await runningSeeds();
   } catch (error) {
-    logger.error({ err: error }, "Failed to initialize app:");
+    logger.error({ err: error }, "Failed to initialize app");
   }
 };
 
-// Initialize the app
-initializeApp();
+if (env.NODE_ENV === "development") {
+  await initializeApp();
+}

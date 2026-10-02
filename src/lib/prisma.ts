@@ -7,4 +7,4 @@ export type TransactionClient = Omit<
   PrismaClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
 >;
-export const prisma = new PrismaClient({ adapter });
+export const db = new PrismaClient({ adapter });
